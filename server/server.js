@@ -5,7 +5,7 @@ const path = require('path');
 app.use(cors());
 const PORT = 8080;
 
-const words = ['banana', 'car', 'toy', 'school', 'cloud']
+const words = []
 
 // Serve static files from express server
 app.use(express.static(path.join(__dirname, '..','client')));
@@ -15,7 +15,9 @@ app.get('/api/random-word', async (req, res) => {
     try {
         const response = await fetch("https://random-word-api.vercel.app/api?words=3")
         const data = await response.json();
-        if (data && data.length > 0) {
+        if (data && Array.isArray(data) && data.length > 0) {
+            //filter words that might be too short/long.
+            data.filter(i => i.length >= 4 && i.length <= 10)
             res.json({ word: data[0]});
         }
     } catch (err) {
