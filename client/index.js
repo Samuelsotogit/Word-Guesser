@@ -12,17 +12,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         const form = document.querySelector("form");
         const secretWordElement = document.getElementById("secret-word");
         const lettersGuessedElement = document.getElementById("letters-guessed");
+        const triesElement = document.getElementById("tries");
         const input = document.getElementById("guess-input");
         let word = await randomWord();
         const wordChars = word.split("");
         const unguessedChars = Array(word.length).fill("_");
         const lettersGuessed = [];
-
+        let count = 0;
         secretWordElement.textContent = unguessedChars.join(" ");
         lettersGuessedElement.textContent = lettersGuessed.join(" ");
+        triesElement.textContent = count;
         
-        let count = 0;
-
         if (form) {
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
@@ -46,20 +46,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 lettersGuessed.push(guess);
 
+                if (!wordChars.includes(guess)) {
+                    count++;
+                }
+
                 updateArray(guess, wordChars, unguessedChars);
 
                 secretWordElement.textContent = unguessedChars.join(" ");
                 lettersGuessedElement.textContent = lettersGuessed.join(" ");
-                
+                triesElement.textContent = count;
+
                 if (!unguessedChars.includes("_")) {
                     alert("Congratulations! You Win!")
+                    history.back();
                 }
-
-                count++;
             }); 
         }
-
-
 
         if (exitButton) {
             exitButton.addEventListener("click", () => {
