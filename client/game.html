@@ -11,16 +11,24 @@
             <h1>Word Guesser</h1>
         </header>
         <main>
+            <div id="instructions-container">
+                <p>Instructions: </p>
+                <ul>
+                    <li>Guess the secret word</li>
+                    <li>Enter one letter at a time</li>
+                    <li>You have a limit of 7 wrong attempts</li>
+                </ul>
+            </div>
             <div id="game-box">
                 <p>Secret Word: <span id="secret-word"></span></p>
                 <p>Letters guessed: <span id="letters-guessed"></span></p>
                 <p>Total tries: <span id="tries"></span></p>
                 <form id="form-container">
-                    <input type="text" id="guess-input" maxlength="1" required>
+                    <input type="text" id="guess-input" maxlength="1" autocomplete="off" required>
                     <input type="submit" id="guess-button" value="submit">
                 </form>
+                <button id="exit-button">Quit</button>
             </div>
-            <button id="exit-button">Quit</button>
         </main>
         <footer>
             <p id="play-text">Creator handle: samuelsotogit</p>

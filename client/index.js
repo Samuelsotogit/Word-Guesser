@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 input.value = "";
 
                 if (count >= 7) {
-                    alert("Took too many attempts! Game over.")
+                    alert(`Took too many attempts! The word was '${word}'.\nGame over.`)
                     history.back();
                 }
 
@@ -57,8 +57,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                 triesElement.textContent = count;
 
                 if (!unguessedChars.includes("_")) {
-                    alert("Congratulations! You Win!")
-                    history.back();
+                    setTimeout(()=> {
+                        alert("Congratulations! You Win!")
+                        history.back();
+                    }, 100);   
                 }
             }); 
         }
