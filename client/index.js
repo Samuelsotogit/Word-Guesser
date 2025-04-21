@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const secretWordElement = document.getElementById("secret-word");
         const lettersGuessedElement = document.getElementById("letters-guessed");
         const triesElement = document.getElementById("tries");
+        const timeDisplay = document.getElementById("timer-display");
         const input = document.getElementById("guess-input");
         let word = await randomWord();
         const wordChars = word.split("");
@@ -22,6 +23,25 @@ document.addEventListener("DOMContentLoaded", async () => {
         secretWordElement.textContent = unguessedChars.join(" ");
         lettersGuessedElement.textContent = lettersGuessed.join(" ");
         triesElement.textContent = count;
+        const startMinutes = 10;
+        let time = startMinutes * 60;
+
+        let intervalID = setInterval(updateCountDown, 1000);
+
+        function updateCountDown() {
+            if (time < 0) {
+                clearInterval(intervalID);
+                alert("Ran out of time")
+                history.back();
+            }
+            const minutes = Math.floor(time / 60);
+            let seconds = time % 60;
+            seconds = (seconds < 10) ? '0' + seconds : seconds;
+
+            timeDisplay.textContent = minutes + ":" + seconds;
+            time--;
+        }
+        
         
         if (form) {
             form.addEventListener('submit', (event) => {
