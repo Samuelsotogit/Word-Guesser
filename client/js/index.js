@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const difficulty = urlParams.get("difficulty");
     const bodyId = document.body.id;
     if (bodyId === "home-page") {
         const playButton = document.getElementById("play-button");
         if (playButton) {
             playButton.addEventListener("click", () => {
-                window.location.href = "game.html";
+                window.location.href = "menu.html";
             });
         }
     } else if (bodyId === "game-page") {
@@ -23,7 +25,22 @@ document.addEventListener("DOMContentLoaded", async () => {
         secretWordElement.textContent = unguessedChars.join(" ");
         lettersGuessedElement.textContent = lettersGuessed.join(" ");
         triesElement.textContent = count;
-        const startMinutes = 10;
+        
+        let startMinutes;
+
+        if (difficulty === "easy") {
+            startMinutes = 10;
+        }
+        else if (difficulty === "normal") {
+            startMinutes = 5;
+        }
+        else if (difficulty === "hard") {
+            startMinutes = 3;
+        }
+        else {
+            startMinutes = 5;
+        }
+
         let time = startMinutes * 60;
 
         let intervalID = setInterval(updateCountDown, 1000);
@@ -41,7 +58,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             timeDisplay.textContent = minutes + ":" + seconds;
             time--;
         }
-        
         
         if (form) {
             form.addEventListener('submit', (event) => {
@@ -87,7 +103,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (exitButton) {
             exitButton.addEventListener("click", () => {
-                history.back();
+                window.location.href = "index.html"
             });
         }
 
